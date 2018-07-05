@@ -17,9 +17,11 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class editActivity extends AppCompatActivity implements View.OnClickListener{
@@ -32,6 +34,9 @@ public class editActivity extends AppCompatActivity implements View.OnClickListe
     private int mY,mM,mD;
     private ConstraintLayout conLo;
 
+    private Spinner spinner;
+    private ArrayList<colorSelectList> colorList;
+    private spinneradapter SpAda;
 
 
 //----------------------------------------------------------------------------------------------
@@ -57,7 +62,7 @@ public class editActivity extends AppCompatActivity implements View.OnClickListe
         return super.onOptionsItemSelected(item);
     }
 
-    //----------------------------------------------------------------------------------------------
+//OnCreate----------------------------------------------------------------------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +76,18 @@ public class editActivity extends AppCompatActivity implements View.OnClickListe
         conLo = findViewById(R.id.editLayout);
 
         dbadapter = new dbadapter(this);
+
+        spinner = findViewById(R.id.spinner);
+/*/輸入colorlist資料----------------------------------------------------------------------------------------------
+        colorList = new ArrayList<colorSelectList>();
+        colorList.add(new colorSelectList("藍色", "#5F70B6"));
+        colorList.add(new colorSelectList("紅色", "#F67181"));
+        colorList.add(new colorSelectList("綠色", "#7DDB65"));
+        colorList.add(new colorSelectList("黃色", "#FFD675"));
+        SpAda = new spinneradapter(this,colorList);
+
+        spinner.setAdapter(SpAda);
+*/
 //----------------------------------------------------------------------------------------------
         btncancel.setOnClickListener(this);
         btnsave.setOnClickListener(this);

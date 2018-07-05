@@ -11,13 +11,18 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private ListView lvmemo;
     private dbadapter dbadapter;
     private SimpleCursorAdapter scAdapter;
     private Intent i;
+
+
 //產生menu----------------------------------------------------------------------------------------------
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -43,11 +48,13 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-//----------------------------------------------------------------------------------------------
+//OnCreate----------------------------------------------------------------------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 //連線database----------------------------------------------------------------------------------------------
         lvmemo = findViewById(R.id.memolist);
         dbadapter = new dbadapter(this);
