@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 i.putExtra("_id", itemI);
                 i.setClass(MainActivity.this, editActivity.class);
                 startActivity(i);
+                finish();
             }
         });
 //----------------------------------------------------------------------------------------------

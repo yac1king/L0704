@@ -133,6 +133,7 @@ public class editActivity extends AppCompatActivity implements View.OnClickListe
                         memodate.setText(year + "-" + (month+1) + "-" +dayOfMonth);
                     }
                 },mY,mM,mD);
+                //DatePickerDialog DPD = new DatePickerDialog(editActivity.this);
                 DPD.show();
                 break;
 //----------------------------------------------------------------------------------------------
@@ -146,6 +147,7 @@ public class editActivity extends AppCompatActivity implements View.OnClickListe
                     }finally {
                         Intent i = new Intent(this, MainActivity.class);
                         startActivity(i);
+                        finish();
                     }
                 }else {
 
