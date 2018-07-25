@@ -9,10 +9,13 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.LogPrinter;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -21,6 +24,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -33,6 +37,7 @@ public class editActivity extends AppCompatActivity implements View.OnClickListe
     private int index;
     private int mY,mM,mD;
     private ConstraintLayout conLo;
+    private String BGcolor;
 
     private Spinner spinner;
     private ArrayList<colorSelectList> colorList;
@@ -78,16 +83,35 @@ public class editActivity extends AppCompatActivity implements View.OnClickListe
         dbadapter = new dbadapter(this);
 
         spinner = findViewById(R.id.spinner);
-/*/輸入colorlist資料----------------------------------------------------------------------------------------------
+
+        BGcolor = "#5F70B6";
+//輸入colorlist資料----------------------------------------------------------------------------------------------
         colorList = new ArrayList<colorSelectList>();
         colorList.add(new colorSelectList("藍色", "#5F70B6"));
         colorList.add(new colorSelectList("紅色", "#F67181"));
         colorList.add(new colorSelectList("綠色", "#7DDB65"));
         colorList.add(new colorSelectList("黃色", "#FFD675"));
-        SpAda = new spinneradapter(this,colorList);
 
+//        Log.i("(っ・ω・）っ≡≡≡≡≡≡☆",colorList.get(0).getColorName());
+//        Log.i("(っ・ω・）っ≡≡≡≡≡≡=☆",colorList.get(0).getColorCode());
+        SpAda = new spinneradapter(this,colorList);
         spinner.setAdapter(SpAda);
-*/
+
+
+//----------------------------------------------------------------------------------------------
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                BGcolor = colorList.get(position).getColorCode();
+                Log.i("(っ・ω・）っ≡≡≡≡≡≡☆",BGcolor);
+                conLo.setBackgroundColor(Color.parseColor(BGcolor));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 //----------------------------------------------------------------------------------------------
         btncancel.setOnClickListener(this);
         btnsave.setOnClickListener(this);
@@ -102,24 +126,39 @@ public class editActivity extends AppCompatActivity implements View.OnClickListe
             title.setText(cursor.getString(1));
             content.setText(cursor.getString(2));
             memodate.setText(cursor.getString(3));
-
-            String setCol = cursor.getString(4);
-            Toast.makeText(getBaseContext(),setCol,Toast.LENGTH_SHORT).show();
-            switch (setCol){
-                case "blue":
-                    conLo.setBackgroundColor(Color.rgb(50,100,255));
+            BGcolor = cursor.getString(4);
+            Log.i("(∩｀-´)⊃━✿✿✿✿✿✿",BGcolor);
+            conLo.setBackgroundColor(Color.parseColor(BGcolor));
+            spinner.setAdapter(SpAda);
+            switch (BGcolor){
+                case "#5F70B6":
+                    spinner.setSelection(0);
+                    break;
+                case "#F67181":
+                    spinner.setSelection(1);
+                    break;
+                case "#7DDB65":
+                    spinner.setSelection(2);
+                    break;
+                case "#FFD675":
+                    spinner.setSelection(3);
                     break;
             }
+        }else {
+            SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String sd = sDateFormat.format(new java.util.Date());
+            memodate.setText(sd);
         }
-
     }
+
+
 //----------------------------------------------------------------------------------------------
     @Override
     public void onClick(View v) {
         String st = title.getText().toString();
         String sc = content.getText().toString();
         String sd = memodate.getText().toString();
-        String scol = "blue";
+        String scol = BGcolor;
 //日期選擇----------------------------------------------------------------------------------------------
         switch (v.getId()){
             case R.id.editDate:
@@ -136,8 +175,8 @@ public class editActivity extends AppCompatActivity implements View.OnClickListe
                 //DatePickerDialog DPD = new DatePickerDialog(editActivity.this);
                 DPD.show();
                 break;
-//----------------------------------------------------------------------------------------------
-
+//確定按鈕----------------------------------------------------------------------------------------------
+//確定按鈕(編輯狀態)----------------------------------------------------------------------------------------------
             case R.id.editSave:
                 if(bundle.getString("type").equals("edit")) {
                     try{
@@ -149,9 +188,11 @@ public class editActivity extends AppCompatActivity implements View.OnClickListe
                         startActivity(i);
                         finish();
                     }
+//確定按鈕(新增狀態)----------------------------------------------------------------------------------------------
                 }else {
-
                     try {
+
+                        //Log.i("(∩｀-´)⊃━炎炎炎炎炎",date);
                         dbadapter.createMemo(st,sc,sd,scol);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -164,8 +205,8 @@ public class editActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 //按下確定按鈕按下取消按鈕----------------------------------------------------------------------------------------------
             case R.id.editCancel:
-                i = new Intent(editActivity.this,MainActivity.class);
-                startActivity(i);
+//                i = new Intent(editActivity.this,MainActivity.class);
+//                startActivity(i);
                 finish();
                 break;
 

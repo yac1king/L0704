@@ -41,9 +41,11 @@ public class spinneradapter  extends BaseAdapter{
 
         View v = layoutInflater.inflate(R.layout.spinner_view,null);
         ImageView colorimg = v.findViewById(R.id.spinnerImg);
-        colorimg.setBackgroundColor(Color.parseColor(colorsel.colorCode));
         TextView colortext = v.findViewById(R.id.spinnerText);
+
+
+        colorimg.setBackgroundColor(Color.parseColor(colorsel.colorCode));
         colortext.setText(colorsel.colorName);
-        return null;
+        return v;
     }
 }
