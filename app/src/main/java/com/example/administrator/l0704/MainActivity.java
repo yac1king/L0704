@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView lvmemo;
     private dbadapter dbadapter;
     private SimpleCursorAdapter scAdapter;
+    private listAdapter liAdapter;
     private Intent i;
 
 
@@ -67,7 +68,9 @@ public class MainActivity extends AppCompatActivity {
         String[] col = new String[]{dbadapter.KEY_TITLE,dbadapter.KEY_CONTENT,dbadapter.KEY_DATE};
         int[] to = new int[]{R.id.memotitle,R.id.memocontent,R.id.memoDate};
         scAdapter = new SimpleCursorAdapter(this,R.layout.memolistlayout,cur,col,to,0);
-        lvmemo.setAdapter(scAdapter);
+        liAdapter = new listAdapter(this,cur);
+
+        lvmemo.setAdapter(liAdapter);
 //選擇要變更的資料----------------------------------------------------------------------------------------------
         lvmemo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

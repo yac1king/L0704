@@ -27,7 +27,7 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="Name"
+            android:text="新增記事"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -48,7 +48,6 @@
             android:gravity="right"
             android:inputType="textPersonName"
             android:onClick="onClick"
-            android:text="1988-11-11"
             android:textAlignment="center" />
     </LinearLayout>
 
@@ -65,7 +64,6 @@
         android:ems="10"
         android:gravity="top"
         android:inputType="textMultiLine"
-        android:text="ashduhasjkahsduwhduashdjkashdlahdjashdlkajshdklajshdlakjsdhaklsjdhaksjdhwubxbcygw"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
